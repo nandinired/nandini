@@ -6,7 +6,7 @@ import requests
 def lambda_handler(event, context):
     # TODO implement
     # api-endpoint
-    print(event2)
+    print(event1)
     URL = "http://maps.googleapis.com/maps/api/geocode/json"
     location = event['landmark']
     # defining a params dict for the parameters to be sent to the API
