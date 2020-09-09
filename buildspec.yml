@@ -6,7 +6,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - git clone https://github.com/nandinired/nandini.git 
+      - git clone https://github.com/nandinired/nandini.git /opt/app 
       - echo Compiling the Python code...
       - pip install requests -t .
   post_build:
@@ -16,4 +16,4 @@ phases:
       - ls -al
 artifacts:
   files:
-    - '**/*'
+    - /opt/app/public/**/*
