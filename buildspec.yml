@@ -16,4 +16,4 @@ phases:
       - ls -al
 artifacts:
   files:
-    - /opt/app/public/**/*
+    - '**/*'
