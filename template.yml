@@ -22,7 +22,7 @@ Resources:
       VpcConfig:
         SubnetIds: !Ref SubnetIDs
         SecurityGroupIds: !Ref SecurityGroupIds
-      Runtime: python3.7
+      Runtime: python3.8
       Role: !Ref RoleARN
       FileSystemConfigs:
         - Arn: >-
