@@ -16,6 +16,8 @@ phases:
       - echo Build completed on `date`
       - pwd
       - ls -al
+      - mkdir build-output
+      - cp -R folder/opt/app build-output
 artifacts:
   type: zip
   files:
