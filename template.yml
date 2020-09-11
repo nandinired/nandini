@@ -8,6 +8,12 @@ Resources:
       Handler: index.lambda_handler
       Runtime: python3.8
       CodeUri: ./
+      VpcConfig:
+        SecurityGroupIds: sg-0af805e4069311e89
+        SubnetIds: subnet-082c40be8b2e02b85
+      FileSystemConfigs:
+      - Arn: arn:aws:elasticfilesystem:us-east-2:402783855041:access-point/fsap-07187905a84aeb479
+        LocalMountPath: /mnt/access
       Events:
         MyTimeApi:
           Type: Api
