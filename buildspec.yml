@@ -7,6 +7,8 @@ phases:
     commands:
       - echo Build started on `date`
       - git clone https://github.com/nandinired/nandini.git /opt/app 
+      - export BUCKET=test-pipeline-output1-bucket
+      - aws cloudformation package --template-file template.yml --s3-bucket $BUCKET --output-template-file outputtemplate.yml
       - echo Compiling the Python code...
       - pip install requests -t .
   post_build:
@@ -15,5 +17,7 @@ phases:
       - pwd
       - ls -al
 artifacts:
+  type: zip
   files:
-    - '**/*'
+    - template.yml
+    - outputtemplate.yml
