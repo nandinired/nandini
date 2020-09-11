@@ -10,7 +10,7 @@ phases:
       - export BUCKET=test-pipeline-output1-bucket
       - aws cloudformation package --template-file template.yml --s3-bucket $BUCKET --output-template-file outputtemplate.yml
       - echo Compiling the Python code...
-      - pip install requests -t .
+      - pip install requests
   post_build:
     commands:
       - echo Build completed on `date`
