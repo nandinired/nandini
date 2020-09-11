@@ -1,19 +1,33 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Outputs the time
+Parameters:
+  SecurityGroupIds:
+    Type: CommaDelimitedList
+    Default: sg-0af805e4069311e89
+  RoleARN:
+    Type: String
+    Description: Role ARN
+    Default: arn:aws:iam::402783855041:role/lambda_efs
+  SubnetIDs:
+    Type: CommaDelimitedList
+    Description: The list of SubnetIDs in your Virtual Private Cloud (VPC)
+    Default: subnet-082c40be8b2e02b85
 Resources:
   TimeFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.lambda_handler
-      Runtime: python3.8
       CodeUri: ./
       VpcConfig:
-        SecurityGroupIds: sg-0af805e4069311e89
-        SubnetIds: subnet-082c40be8b2e02b85
+        SubnetIds: !Ref SubnetIDs
+        SecurityGroupIds: !Ref SecurityGroupIds
+      Runtime: python3.7
+      Role: !Ref RoleARN
       FileSystemConfigs:
-      - Arn: arn:aws:elasticfilesystem:us-east-2:402783855041:access-point/fsap-07187905a84aeb479
-        LocalMountPath: /mnt/access
+        - Arn: >-
+            arn:aws:elasticfilesystem:us-east-2:402783855041:access-point/fsap-07187905a84aeb479
+          LocalMountPath: /mnt/access
       Events:
         MyTimeApi:
           Type: Api
