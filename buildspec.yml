@@ -6,7 +6,10 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - git pull https://github.com/nandinired/nandini.git /opt/app 
+      - git clone https://github.com/nandinired/nandini.git --branch mytest
+      - cd nandini
+      - git tag -l
+      - git checkout v1.0
       - export BUCKET=test-pipeline-output1-bucket
       - aws cloudformation package --template-file template.yml --s3-bucket $BUCKET --output-template-file outputtemplate.yml
       - echo Compiling the Python code...
