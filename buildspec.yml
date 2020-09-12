@@ -6,7 +6,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - git clone https://github.com/nandinired/nandini.git --branch mytest v1.0
+      - git clone https://github.com/nandinired/nandini.git --branch test v1.0
       - export BUCKET=test-pipeline-output1-bucket
       - aws cloudformation package --template-file template.yml --s3-bucket $BUCKET --output-template-file outputtemplate.yml
   post_build:
