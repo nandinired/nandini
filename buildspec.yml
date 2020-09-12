@@ -7,7 +7,6 @@ phases:
     commands:
       - echo Build started on `date`
       - git clone https://github.com/nandinired/nandini.git --branch mytest
-      - cd nandini
       - git tag -l
       - git checkout v1.0
       - export BUCKET=test-pipeline-output1-bucket
