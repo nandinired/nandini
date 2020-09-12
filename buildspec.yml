@@ -8,9 +8,9 @@ phases:
       - echo Build started on `date`
       - cd ..
       - rm -rf test 
-      - git clone https://github.com/nandinired/nandini.git --branch test v1.0
+      - git clone https://github.com/nandinired/nandini.git --branch v1.0
       - ls
-      - cd nandini
+      - cd v1.0/nandini
       - export BUCKET=test-pipeline-output1-bucket
       - aws cloudformation package --template-file template.yml --s3-bucket $BUCKET --output-template-file outputtemplate.yml
   post_build:
