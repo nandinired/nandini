@@ -6,7 +6,9 @@ phases:
   build:
     commands:
       - echo Build started on `date`
+      - ls
       - cd ..
+      - ls
       - rm -rf test
       - pwd
       - git clone https://github.com/nandinired/nandini.git --branch v1.0
