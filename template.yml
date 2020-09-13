@@ -18,7 +18,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.lambda_handler
-      CodeUri: ./develop
+      CodeUri: ./
       VpcConfig:
         SubnetIds: !Ref SubnetIDs
         SecurityGroupIds: !Ref SecurityGroupIds
