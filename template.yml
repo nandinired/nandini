@@ -1,14 +1,15 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Outputs the time
-LambdaFunction:
+Outputs:
+  LambdaFunction:
     Description: Lambda Function
     Export:
       Name: !Sub '${AWS::StackName}-LambdaFunction'
     Value: !GetAtt 
       - LambdaFunction
       - Arn
-LambdaFunctionName:
+  LambdaFunctionName:
     Description: Lambda Function Name
     Export:
       Name: !Sub '${AWS::StackName}-LambdaFunctionName'
