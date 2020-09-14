@@ -14,7 +14,7 @@ phases:
       - mv nandini/* .
       - rm -rf nandini
       - ls
-      - export BUCKET=test-pipeline-output1-bucket
+      - export BUCKET=${BuildArtifactsBucket}
       - aws cloudformation package --template-file template.yml --s3-bucket $BUCKET --output-template-file outputtemplate.yml
   post_build:
     commands:
