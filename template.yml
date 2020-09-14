@@ -41,3 +41,9 @@ Resources:
         - Arn: >-
             arn:aws:elasticfilesystem:us-east-2:402783855041:access-point/fsap-02ae2bf0e3760dc3e
           LocalMountPath: /mnt/access
+       Events:
+         MyTimeApi:
+           Type: Api
+           Properties:
+             Path: /TimeResource
+             Method: GET
