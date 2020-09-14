@@ -1,19 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Outputs the time
-Outputs:
-  LambdaFunction:
-    Description: Lambda Function
-    Export:
-      Name: !Sub '${AWS::StackName}-LambdaFunction'
-    Value: !GetAtt 
-      - LambdaFunction
-      - Arn
-  LambdaFunctionName:
-    Description: Lambda Function Name
-    Export:
-      Name: !Sub '${AWS::StackName}-LambdaFunctionName'
-    Value: !Ref LambdaFunction
 Parameters:
   SecurityGroupIds:
     Type: CommaDelimitedList
@@ -30,6 +17,7 @@ Resources:
   LambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: Sub '${AWS::StackName}-EFSLambda
       Handler: index.lambda_handler
       CodeUri: ./
       Events:
