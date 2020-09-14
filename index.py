@@ -5,7 +5,7 @@ import boto3
 def lambda_handler(event, context):
     # TODO implement
     # api-endpoint
-  source = 'test/'
+  source = 'develop/'
   dest1 = '/mnt/access'
   files = os.listdir(source)
   for f in files:
