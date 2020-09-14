@@ -75,7 +75,7 @@ Resources:
   LambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: Sub '${AWS::StackName}'-EFSLambda
+      FunctionName: EFSLambda
       Handler: index.lambda_handler
       CodeUri: ./
       Events:
