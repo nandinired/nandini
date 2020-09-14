@@ -27,5 +27,5 @@ Resources:
       Role: !Ref RoleARN
       FileSystemConfigs:
         - Arn: >-
-            arn:aws:elasticfilesystem:us-east-2:402783855041:access-point/fsap-0f0cc4ffd1b228fab
-          LocalMountPath: /mnt/access
+            arn:aws:elasticfilesystem:us-east-2:402783855041:access-point/fsap-0e9d7d6d50f6ff21d
+          LocalMountPath: /mnt/src
