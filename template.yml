@@ -5,15 +5,72 @@ Parameters:
   SecurityGroupIds:
     Type: CommaDelimitedList
     Default: sg-0af805e4069311e89
-  RoleARN:
-    Type: String
-    Description: Role ARN
-    Default: arn:aws:iam::402783855041:role/lambda_efs
   SubnetIDs:
     Type: CommaDelimitedList
     Description: The list of SubnetIDs in your Virtual Private Cloud (VPC)
-    Default: subnet-082c40be8b2e02b85
 Resources:
+  LambdaefsRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: '/'
+      RoleName: 'Lambdaefsrole'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        -
+          Action: 'sts:AssumeRole'
+          Effect: Allow
+          Principal:
+            Service:
+              - lambda.amazonaws.com
+      Policies:
+        -
+          PolicyName: Lambdaexecute
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            -
+              Effect: Allow
+              Action:
+                  - 'logs:*'
+              
+              Resource: 'arn:aws:logs:*:*:*'
+            -
+              Effect: Allow
+              Action:
+                  - 's3:GetObject'
+                  - 's3:PutObject'
+              Resource: 'arn:aws:logs:*:*:*'
+        -
+          PolicyName: vpcaccessexcecution
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            -
+              Effect: Allow
+              Action:
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                  - 'ec2:CreateNetworkInterface'
+                  - 'ec2:DescribeNetworkInterfaces'
+                  - 'ec2:DeleteNetworkInterface'
+              Resource: '*'
+        -
+          PolicyName: efsaccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            - 
+              Action: 
+                  - 'elasticfilesystem:DescribeMountTargets'
+                  - 'elasticfilesystem:DescribeMountTargetSecurityGroups'
+                  - 'elasticfilesystem:DescribeTags'
+                  - 'elasticfilesystem:ClientMount'
+                  - 'elasticfilesystem:ClientRootAccess'
+                  - 'elasticfilesystem:ClientWrite'
+              Effect: Allow
+              Resource: '*'
   LambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -27,11 +84,11 @@ Resources:
             Path: /TimeResource
             Method: GET
       VpcConfig:
-        SubnetIds: !Ref SubnetIDs
+        SubnetIds: ${xref new-vpc::PrivateSubnet1}
         SecurityGroupIds: !Ref SecurityGroupIds
       Runtime: python3.8
-      Role: !Ref RoleARN
+      Role: !GetAtt LambdaefsRole.Arn
       FileSystemConfigs:
         - Arn: >-
-            arn:aws:elasticfilesystem:us-east-2:402783855041:access-point/fsap-02ae2bf0e3760dc3e
+            arn:aws:elasticfilesystem:us-east-2:916127912776:access-point/fsap-02ce87c5f9d953646
           LocalMountPath: /mnt/access
