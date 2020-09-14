@@ -40,7 +40,7 @@ Resources:
               Action:
                   - 's3:GetObject'
                   - 's3:PutObject'
-              Resource: 'arn:aws:logs:*:*:*'
+              Resource: '*'
         -
           PolicyName: vpcaccessexcecution
           PolicyDocument:
