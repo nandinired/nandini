@@ -1,6 +1,18 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Outputs the time
+LambdaFunction:
+    Description: Lambda Function
+    Export:
+      Name: !Sub '${AWS::StackName}-LambdaFunction'
+    Value: !GetAtt 
+      - LambdaFunction
+      - Arn
+LambdaFunctionName:
+    Description: Lambda Function Name
+    Export:
+      Name: !Sub '${AWS::StackName}-LambdaFunctionName'
+    Value: !Ref LambdaFunction
 Parameters:
   SecurityGroupIds:
     Type: CommaDelimitedList
@@ -14,7 +26,7 @@ Parameters:
     Description: The list of SubnetIDs in your Virtual Private Cloud (VPC)
     Default: subnet-082c40be8b2e02b85
 Resources:
-  TimeFunction:
+  LambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.lambda_handler
@@ -28,9 +40,3 @@ Resources:
         - Arn: >-
             arn:aws:elasticfilesystem:us-east-2:402783855041:access-point/fsap-02ae2bf0e3760dc3e
           LocalMountPath: /mnt/access
-      Events:
-        MyTimeApi:
-          Type: Api
-          Properties:
-            Path: /TimeResource
-            Method: GET
