@@ -8,6 +8,7 @@ Parameters:
   SubnetIDs:
     Type: CommaDelimitedList
     Description: The list of SubnetIDs in your Virtual Private Cloud (VPC)
+    Default: subnet-082c40be8b2e02b85, subnet-0a9826f2bd9b502e7
 Resources:
   LambdaefsRole:
     Type: AWS::IAM::Role
@@ -84,11 +85,11 @@ Resources:
             Path: /TimeResource
             Method: GET
       VpcConfig:
-        SubnetIds: ${xref new-vpc::PrivateSubnet1}
+        SubnetIds: !Ref SubnetIDs
         SecurityGroupIds: !Ref SecurityGroupIds
       Runtime: python3.8
       Role: !GetAtt LambdaefsRole.Arn
       FileSystemConfigs:
         - Arn: >-
-            arn:aws:elasticfilesystem:us-east-2:916127912776:access-point/fsap-02ce87c5f9d953646
+            arn:aws:elasticfilesystem:us-east-2:402783855041:access-point/fsap-0f0cc4ffd1b228fab
           LocalMountPath: /mnt/access
