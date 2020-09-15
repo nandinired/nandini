@@ -11,6 +11,9 @@ Parameters:
   Arn:
     Type: String
     Description: The arn of the EFS
+  Function:
+    Type: String
+    Description: The name of the Lambda
 Resources:
   LambdaefsRole:
     Type: AWS::IAM::Role
@@ -77,7 +80,7 @@ Resources:
   LambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: EFSLambda
+      FunctionName: !Ref Function
       Handler: index.lambda_handler
       CodeUri: ./
       Events:
