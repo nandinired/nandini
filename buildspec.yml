@@ -15,6 +15,8 @@ phases:
       - rm -rf nandini
       - ls
       - export BUCKET= $BUILD_OUTPUT_BUCKET
+      - echo $BUCKET
+      - echo $BUILD_OUTPUT_BUCKET
       - aws cloudformation package --template-file template.yml --s3-bucket $BUCKET --output-template-file outputtemplate.yml
   post_build:
     commands:
