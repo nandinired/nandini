@@ -4,11 +4,13 @@ Description: Outputs the time
 Parameters:
   SecurityGroupIds:
     Type: CommaDelimitedList
-    Default: sg-0af805e4069311e89
+    Description: The list of securitysg
   SubnetIDs:
     Type: CommaDelimitedList
     Description: The list of SubnetIDs in your Virtual Private Cloud (VPC)
-    Default: subnet-082c40be8b2e02b85, subnet-0a9826f2bd9b502e7
+  Arn:
+    Type: String
+    Description: The arn of the EFS
 Resources:
   LambdaefsRole:
     Type: AWS::IAM::Role
@@ -91,5 +93,5 @@ Resources:
       Role: !GetAtt LambdaefsRole.Arn
       FileSystemConfigs:
         - Arn: >-
-            arn:aws:elasticfilesystem:us-east-2:402783855041:access-point/fsap-0e9d7d6d50f6ff21d
+            !Ref Arn
           LocalMountPath: /mnt/src
