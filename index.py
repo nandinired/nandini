@@ -62,18 +62,6 @@ def continue_job_later(job, message):
 def lambda_handler(event, context):
   
   try:
-      # Extract the Job ID
-    job_id = event['CodePipeline.job']['id']
-
-      # Extract the Job Data
-    job_data = event['CodePipeline.job']['data']
-    artifacts = job_data['inputArtifacts']
-
-    if 'continuationToken' in job_data:
-      # If we're continuing then the create/update has already been triggered
-      # we just need to check if it has finished.
-        print("Job is continuing")
-    else:
       source = 'develop/'
       dest1 = '/mnt/src'
       files = os.listdir(source)
