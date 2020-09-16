@@ -14,81 +14,16 @@ Parameters:
   Function:
     Type: String
     Description: The name of the Lambda
+  Role:
+    Type: String
+    Description: The role to access EFS from Lambda
 Resources:
-  LambdaefsRole:
-    Type: AWS::IAM::Role
-    Properties:
-      Path: '/'
-      RoleName: 'Lambdaefsrole'
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-        -
-          Action: 'sts:AssumeRole'
-          Effect: Allow
-          Principal:
-            Service:
-              - lambda.amazonaws.com
-      Policies:
-        -
-          PolicyName: Lambdaexecute
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-            -
-              Effect: Allow
-              Action:
-                  - 'logs:*'
-              
-              Resource: 'arn:aws:logs:*:*:*'
-            -
-              Effect: Allow
-              Action:
-                  - 's3:GetObject'
-                  - 's3:PutObject'
-              Resource: '*'
-        -
-          PolicyName: vpcaccessexcecution
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-            -
-              Effect: Allow
-              Action:
-                  - 'logs:CreateLogGroup'
-                  - 'logs:CreateLogStream'
-                  - 'logs:PutLogEvents'
-                  - 'ec2:CreateNetworkInterface'
-                  - 'ec2:DescribeNetworkInterfaces'
-                  - 'ec2:DeleteNetworkInterface'
-              Resource: '*'
-        -
-          PolicyName: efsaccess
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-            - 
-              Action: 
-                  - 'elasticfilesystem:DescribeMountTargets'
-                  - 'elasticfilesystem:DescribeMountTargetSecurityGroups'
-                  - 'elasticfilesystem:DescribeTags'
-                  - 'elasticfilesystem:ClientMount'
-                  - 'elasticfilesystem:ClientRootAccess'
-                  - 'elasticfilesystem:ClientWrite'
-              Effect: Allow
-              Resource: '*'
   LambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Ref Function
       Handler: index.lambda_handler
       CodeUri: ./
-      Events:
-        MyTimeApi:
-          Type: Api
-          Properties:
-            Path: /TimeResource
-            Method: GET
       VpcConfig:
         SubnetIds: !Ref SubnetIDs
         SecurityGroupIds: !Ref SecurityGroupIds
