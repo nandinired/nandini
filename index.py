@@ -79,6 +79,6 @@ def lambda_handler(event, context):
      print('Function failed due to exception.')
      print(e)
      traceback.print_exc()
-     put_job_failure(job_id, 'Function exception: ' + str(e))
+     code_pipeline.put_job_failure_result(jobId=job, failureDetails={'message': message, 'type': 'JobFailed'})
   print('Function complete.')   
   return "complete."
