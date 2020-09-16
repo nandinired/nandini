@@ -68,6 +68,7 @@ def lambda_handler(event, context):
         # Extract the Job Data 
         job_data = event['CodePipeline.job']['data']
         print(job_data)
+        print(job_id)
         if 'continuationToken' in job_data:
             # If we're continuing then the create/update has already been triggered
             # we just need to check if it has finished.
@@ -79,6 +80,7 @@ def lambda_handler(event, context):
       #for f in files:
           #shutil.copy(source+f, dest1)
             code_pipeline.put_job_success_result(jobId=job_id)
+            print("hello")
     except Exception as e:
      # If any other exceptions which we didn't expect are raised
      # then fail the job and log the exception message.
