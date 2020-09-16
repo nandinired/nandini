@@ -60,8 +60,13 @@ def continue_job_later(job, message):
     print(message)
     code_pipeline.put_job_success_result(jobId=job, continuationToken=continuation_token)
 def lambda_handler(event, context):
-  
+   
   try:
+        # Extract the Job ID
+      job_id = event['CodePipeline.job']['id']
+        
+        # Extract the Job Data 
+      job_data = event['CodePipeline.job']['data']
       source = 'develop/'
       dest1 = '/mnt/src'
       files = os.listdir(source)
