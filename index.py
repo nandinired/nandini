@@ -69,8 +69,8 @@ def lambda_handler(event, context):
         job_data = event['CodePipeline.job']['data']
         print(job_data)
         print(job_id)
-        print("hello")
         code_pipeline.put_job_success_result(jobId=job_id)
+        print("hello")
         if 'continuationToken' in job_data:
             # If we're continuing then the create/update has already been triggered
             # we just need to check if it has finished.
