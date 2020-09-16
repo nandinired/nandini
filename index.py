@@ -61,24 +61,24 @@ def continue_job_later(job, message):
     code_pipeline.put_job_success_result(jobId=job, continuationToken=continuation_token)
 def lambda_handler(event, context):
     code_pipeline = boto3.client('codepipeline')
-  try:
+    try:
         # Extract the Job ID
-      job_id = event['CodePipeline.job']['id']
+        job_id = event['CodePipeline.job']['id']
         
         # Extract the Job Data 
-      job_data = event['CodePipeline.job']['data']
+        job_data = event['CodePipeline.job']['data']
       #source = 'develop/'
       #dest1 = '/mnt/src'
       #files = os.listdir(source)
       #for f in files:
           #shutil.copy(source+f, dest1)
-      code_pipeline.put_job_success_result(jobId=job_id)
-  except Exception as e:
+        code_pipeline.put_job_success_result(jobId=job_id)
+    except Exception as e:
      # If any other exceptions which we didn't expect are raised
      # then fail the job and log the exception message.
-     print('Function failed due to exception.')
-     print(e)
-     traceback.print_exc()
-     code_pipeline.put_job_failure_result(jobId=job, failureDetails={'message': message, 'type': 'JobFailed'})
-  print('Function complete.')   
-  return "complete."
+        print('Function failed due to exception.')
+        print(e)
+        traceback.print_exc()
+        code_pipeline.put_job_failure_result(jobId=job, failureDetails={'message': message, 'type': 'JobFailed'})
+    print('Function complete.')   
+    return "complete."
