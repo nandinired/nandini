@@ -28,7 +28,7 @@ Resources:
         SubnetIds: !Ref SubnetIDs
         SecurityGroupIds: !Ref SecurityGroupIds
       Runtime: python3.8
-      Role: !GetAtt LambdaefsRole.Arn
+      Role: !Ref Role
       FileSystemConfigs:
         - Arn: !Ref Arn
           LocalMountPath: /mnt/src
