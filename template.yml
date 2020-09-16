@@ -23,6 +23,7 @@ Resources:
     Properties:
       FunctionName: !Ref Function
       Handler: index.lambda_handler
+      Timeout: 20
       CodeUri: ./
       VpcConfig:
         SubnetIds: !Ref SubnetIDs
