@@ -67,6 +67,7 @@ def lambda_handler(event, context):
         
         # Extract the Job Data 
         job_data = event['CodePipeline.job']['data']
+        print(job_data)
       #source = 'develop/'
       #dest1 = '/mnt/src'
       #files = os.listdir(source)
