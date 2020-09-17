@@ -30,6 +30,12 @@ Resources:
         SecurityGroupIds: !Ref SecurityGroupIds
       Runtime: python3.8
       Role: !Ref Role
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: /TimeResource
+            Method: GET
       FileSystemConfigs:
         - Arn: !Ref Arn
           LocalMountPath: /mnt/src
