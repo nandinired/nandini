@@ -1,94 +1,33 @@
 from __future__ import print_function
+from botocore.exceptions import ClientError
 import json
 import os
 import shutil
 import boto3
 import traceback
-
-
-def put_job_success(job, message):
-    """Notify CodePipeline of a successful job
-
-    Args:
-        job: The CodePipeline job ID
-        message: A message to be logged relating to the job status
-
-    Raises:
-        Exception: Any exception thrown by .put_job_success_result()
-
-    """
-    print('Putting job success')
-    print(message)
-    code_pipeline.put_job_success_result(jobId=job)
-
-def put_job_failure(job, message):
-    """Notify CodePipeline of a failed job
-
-    Args:
-        job: The CodePipeline job ID
-        message: A message to be logged relating to the job status
-
-    Raises:
-        Exception: Any exception thrown by .put_job_failure_result()
-
-    """
-    print('Putting job failure')
-    print(message)
-    code_pipeline.put_job_failure_result(jobId=job, failureDetails={'message': message, 'type': 'JobFailed'})
-
-def continue_job_later(job, message):
-    """Notify CodePipeline of a continuing job
-
-    This will cause CodePipeline to invoke the function again with the
-    supplied continuation token.
-
-    Args:
-        job: The JobID
-        message: A message to be logged relating to the job status
-        continuation_token: The continuation token
-
-    Raises:
-        Exception: Any exception thrown by .put_job_success_result()
-
-    """
-
-    # Use the continuation token to keep track of any job execution state
-    # This data will be available when a new job is scheduled to continue the current execution
-    continuation_token = json.dumps({'previous_job_id': job})
-
-    print('Putting job continuation')
-    print(message)
-    code_pipeline.put_job_success_result(jobId=job, continuationToken=continuation_token)
+import hashlib
+import time
 def lambda_handler(event, context):
-    code_pipeline = boto3.client('codepipeline')
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    logger.debug(json.dumps(event))
+ 
+    codepipeline = boto3.client('codepipeline')
+    job_id = event['CodePipeline.job']['id']
+ 
     try:
-        # Extract the Job ID
-        job_id = event['CodePipeline.job']['id']
-        
-        # Extract the Job Data 
-        job_data = event['CodePipeline.job']['data']
-        print(job_data)
-        print(job_id)
-        code_pipeline.put_job_success_result(jobId=job_id)
+        raise ValueError('This message will appear in the CodePipeline UI.')
+        logger.info('Doing cool stuff!')
         print("hello")
-        if 'continuationToken' in job_data:
-            # If we're continuing then the create/update has already been triggered
-            # we just need to check if it has finished.
-            print("Job is continuing")
-        else:
-      #source = 'develop/'
-      #dest1 = '/mnt/src'
-      #files = os.listdir(source)
-      #for f in files:
-          #shutil.copy(source+f, dest1)
-            code_pipeline.put_job_success_result(jobId=job_id)
-            print("hello")
-    except Exception as e:
-     # If any other exceptions which we didn't expect are raised
-     # then fail the job and log the exception message.
-        print('Function failed due to exception.')
-        print(e)
-        traceback.print_exc()
-        code_pipeline.put_job_failure_result(jobId=job, failureDetails={'message': message, 'type': 'JobFailed'})
-    print('Function complete.')   
-    return "complete."
+        response = codepipeline.put_job_success_result(jobId=job_id)
+        logger.debug(response)
+    except Exception as error:
+        logger.exception(error)
+        response = codepipeline.put_job_failure_result(
+            jobId=job_id,
+            failureDetails={
+              'type': 'JobFailed',
+              'message': f'{error.__class__.__name__}: {str(error)}'
+            }
+        )
+        logger.debug(response)
