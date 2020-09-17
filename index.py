@@ -8,7 +8,7 @@ import traceback
 import hashlib
 import time
 
-
+code_pipeline = boto3.client('codepipeline')
 def put_job_success(job, message):
     """Notify CodePipeline of a successful job
 
@@ -63,7 +63,6 @@ def continue_job_later(job, message):
     print(message)
     code_pipeline.put_job_success_result(jobId=job, continuationToken=continuation_token)
 def lambda_handler(event, context):
-    code_pipeline = boto3.client('codepipeline')
     # Get the job_id
     for key, value in event.items():
         print(key,value)
