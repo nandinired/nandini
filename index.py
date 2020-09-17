@@ -9,6 +9,24 @@ import hashlib
 import time
 
 code_pipeline = boto3.client('codepipeline')
+def find_artifact(artifacts, name):
+    """Finds the artifact 'name' among the 'artifacts'
+    
+    Args:
+        artifacts: The list of artifacts available to the function
+        name: The artifact we wish to use
+    Returns:
+        The artifact dictionary found
+    Raises:
+        Exception: If no matching artifact is found
+    
+    """
+    for artifact in artifacts:
+        if artifact['name'] == name:
+            return artifact
+            
+    raise Exception('Input artifact named "{0}" not found in event'.format(name))
+
 def get_user_params(job_data):
     """Decodes the JSON user parameters and validates the required properties.
     
