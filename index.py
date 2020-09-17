@@ -7,6 +7,7 @@ import boto3
 import traceback
 import hashlib
 import time
+import logging
 def lambda_handler(event, context):
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
