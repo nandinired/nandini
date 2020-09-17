@@ -3,6 +3,7 @@ from boto3.session import Session
 
 import sys
 import os
+import shutil
 import zipfile
 import json
 import urllib
