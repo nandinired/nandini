@@ -1,73 +1,43 @@
-from __future__ import print_function
-from boto3.session import Session
-
-import sys
-import os
-import shutil
-import zipfile
 import json
-import urllib
-import boto3
-import zipfile
-import tempfile
-import botocore
-import traceback
 import logging
-import io
+import boto3
+import pycurl
+import StringIO
 
 
-print('Loading function')
 
-code_pipeline = boto3.client('codepipeline')
-def put_job_success(job, message):
-    """Notify CodePipeline of a successful job
-    Args:
-        job: The CodePipeline job ID
-        message: A message to be logged relating to the job status
-    Raises:
-        Exception: Any exception thrown by .put_job_success_result()
-    """
-    print('Putting job success')
-    print(message)
-    code_pipeline.put_job_success_result(jobId=job)
-    print("success")
-
-def put_job_failure(job, message):
-    """Notify CodePipeline of a failed job
-    Args:
-        job: The CodePipeline job ID
-        message: A message to be logged relating to the job status
-    Raises:
-        Exception: Any exception thrown by .put_job_failure_result()
-    """
-    print('Putting job failure')
-    print(message)
-    code_pipeline.put_job_failure_result(jobId=job, failureDetails={'message': message, 'type': 'JobFailed'})
-    
 def lambda_handler(event, context):
-     try:
-        job_id = event['CodePipeline.job']['id']
-        job_data = event['CodePipeline.job']['data']
-        print(job_data)
-        print(job_id)
-        if 'continuationToken' in job_data:
-            # If we're continuing then the create/update has already been triggered
-            # we just need to check if it has finished.
-            print("Job is continuing")
-        else:
-            source = 'develop/'
-            dest1 = '/mnt/src'
-            files = os.listdir(source)
-            for f in files:
-                shutil.copy(source+f, dest1)
-                print("hello")
-            put_job_success(job_id, 'copy complete')
-     except Exception as e:
-            # If any other exceptions which we didn't expect are raised
-            # then fail the job and log the exception message.
-        print('Function failed due to exception.') 
-        print(e)
-        traceback.print_exc()
-        put_job_failure(job_id, 'Function exception: ' + str(e))
-     print('Function complete.')   
-     return "complete."
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    logger.debug(json.dumps(event))
+    response2 = StringIO.StringIO()
+    c = pycurl.Curl()
+    c.setopt(c.URL, 'https://www.google.com')
+    c.setopt(c.WRITEFUNCTION, response.write)
+    c.setopt(c.HTTPHEADER, ['Content-Type: application/json','Accept-Charset: UTF-8'])
+    c.setopt(c.POSTFIELDS, '@request.json')
+    c.perform()
+    c.close()
+    logger.info(response2.getvalue())
+    response2.close()
+
+    codepipeline = boto3.client('codepipeline')
+    s3 = boto3.client('s3')
+    job_id = event['CodePipeline.job']['id']
+
+    try:
+        logger.info(job_id)
+        response1 = codepipeline.list_pipelines()
+        logger.info(response1)
+        response = codepipeline.put_job_success_result(jobId=job_id)
+        logger.debug(response)
+    except Exception as error:
+        logger.exception(error)
+        response = codepipeline.put_job_failure_result(
+            jobId=job_id,
+            failureDetails={
+              'type': 'JobFailed',
+              'message': f'{error.__class__.__name__}: {str(error)}'
+            }
+        )
+        logger.debug(response)
