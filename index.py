@@ -57,6 +57,27 @@ def get_user_params(job_data):
         raise Exception('Your UserParameters JSON must include the artifact name')
         
     return decoded_parameters
+def setup_s3_client(job_data):
+    """Creates an S3 client
+    
+    Uses the credentials passed in the event by CodePipeline. These
+    credentials can be used to access the artifact bucket.
+    
+    Args:
+        job_data: The job data structure
+        
+    Returns:
+        An S3 client with the appropriate credentials
+        
+    """
+    key_id = job_data['artifactCredentials']['accessKeyId']
+    key_secret = job_data['artifactCredentials']['secretAccessKey']
+    session_token = job_data['artifactCredentials']['sessionToken']
+    
+    session = Session(aws_access_key_id=key_id,
+        aws_secret_access_key=key_secret,
+        aws_session_token=session_token)
+    return session.client('s3', config=botocore.client.Config(signature_version='s3v4'))
 def put_job_success(job, message):
     """Notify CodePipeline of a successful job
 
@@ -112,17 +133,18 @@ def continue_job_later(job, message):
     code_pipeline.put_job_success_result(jobId=job, continuationToken=continuation_token)
 def lambda_handler(event, context):
     # Get the job_id
-    for key, value in event.items():
-        print(key,value)
-    job_id = event['CodePipeline.job']['id']
-    DATA = json.dumps(event)
-
     try:
         # Extract the Job ID
         job_id = event['CodePipeline.job']['id']
         
         # Extract the Job Data 
         job_data = event['CodePipeline.job']['data']
+        # Extract the params
+        params = get_user_params(job_data)
+        
+        # Get the list of artifacts passed to the function
+        artifacts = job_data['inputArtifacts']
+        artifact = params['artifact']
         print(job_data)
         print(job_id)
         print("hello")
