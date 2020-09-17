@@ -16,6 +16,7 @@ phases:
       - ls
       - export BUCKET=test-pipeline-output1-bucket
       - aws cloudformation package --template-file template.yml --s3-bucket $BUCKET --output-template-file outputtemplate.yml
+      - pip install dirsync
   post_build:
     commands:
       - echo Build completed on `date`
