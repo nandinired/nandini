@@ -32,3 +32,5 @@ def lambda_handler(event, context):
             }
         )
         logger.debug(response)
+    print('Function complete.')   
+    return "complete."
