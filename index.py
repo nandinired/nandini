@@ -34,6 +34,7 @@ def put_job_success(job, message):
     print('Putting job success')
     print(message)
     code_pipeline.put_job_success_result(jobId=job)
+    print("success")
 
 def put_job_failure(job, message):
     """Notify CodePipeline of a failed job
@@ -65,8 +66,6 @@ def lambda_handler(event, context):
                 shutil.copy(source+f, dest1)
                 print("hello")
             put_job_success(job_id, 'copy complete')
-            print("hello")
-            break
      except Exception as e:
             # If any other exceptions which we didn't expect are raised
             # then fail the job and log the exception message.
