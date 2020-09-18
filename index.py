@@ -56,7 +56,7 @@ def lambda_handler(event, context):
             # we just need to check if it has finished.
             print("Job is continuing")
         else:
-            source = 'develop/'
+            source = 'develop/hello/'
             dest1 = '/mnt/src'
             files = os.listdir(source)
             sync(source, dest1, 'sync')
