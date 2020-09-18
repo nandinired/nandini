@@ -9,5 +9,5 @@ phases:
       - ls
       - echo zip Source code to file=$ARTIFACT_OBJECT and upload it to bucket=$BUILD_OUTPUT_BUCKET
       - zip -qr source.zip ./
-      - aws s3 cp $CODEBUILD_SRC_DIR/$ARTIFACT_OBJECT s3://$ARTIFACT_BUCKET/$BUILD_OUTPUT_BUCKET
+      - aws s3 cp $CODEBUILD_SRC_DIR/ s3://$ARTIFACT_BUCKET/$BUILD_OUTPUT_BUCKET
 
