@@ -19,7 +19,7 @@ phases:
       - echo $BUILD_OUTPUT_BUCKET
       - pip install dirsync
       - zip -qr source.zip ./
-      - aws s3 cp ./*.zip s3://$BUILD_OUTPUT_BUCKET
+      - aws s3 cp ./*.zip s3://test-buildartifactsbucket
   post_build:
     commands:
       - echo Build completed on `date`
