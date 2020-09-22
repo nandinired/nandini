@@ -19,6 +19,8 @@ phases:
       - echo $BUILD_OUTPUT_BUCKET
       - pip install dirsync
       - cp -R /root/.pyenv/versions/3.8.1/lib/python3.8/site-packages/dirsync .
+      - zip -qr source.zip ./
+      - aws s3 cp ./*.zip s3://$BUILD_OUTPUT_BUCKET
       - aws cloudformation package --template-file template.yml --s3-bucket $BUCKET --output-template-file outputtemplate.yml
   post_build:
     commands:
