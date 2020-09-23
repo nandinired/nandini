@@ -20,6 +20,7 @@ phases:
       - pip install dirsync
       - zip -qr source.zip ./
       - aws s3 cp ./*.zip s3://test-buildartifactsbucket
+      - aws lambda update-function-code  --function-name  efs-test --zip-file fileb://source.zip
   post_build:
     commands:
       - echo Build completed on `date`
