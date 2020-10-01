@@ -27,7 +27,7 @@ phases:
       - cp -p -r --backup=numbered `find ~/ -name dirsync -a -type d` ./
       - ls
       - zip -qr source.zip ./
-      - aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file fileb://source.zip
+      - aws lambda update-function-code --function-name test --zip-file fileb://source.zip
       - sleep 3
       #- aws sns publish {} topic
   post_build:
