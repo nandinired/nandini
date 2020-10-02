@@ -26,7 +26,7 @@ phases:
       - pip install dirsync
       - cp -p -r --backup=numbered `find ~/ -name dirsync -a -type d` ./
       - ls
-      - zip -qr source.zip ./
+      - aws s3 sync . s3://test-buildartifactsbucket/build 
       - aws lambda update-function-code --function-name test --zip-file fileb://source.zip
       - sleep 3
       #- aws sns publish {} topic
