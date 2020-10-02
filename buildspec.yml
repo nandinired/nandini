@@ -2,7 +2,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.8
+      python: 3.7
     commands:
       - python --version
   pre_build:
@@ -12,7 +12,6 @@ phases:
       - export BRANCH="$GIT_BRANCH"
       - export SOURCE_VERSION="$CODEBUILD_SOURCE_VERSION"
       - export FUNCTION_NAME="$LAMBDA_TO_UPDATE"
-      - export TAG="$TAG"
       - export username="$GITUSER"
       - export pass="$GITPASSWORD"
       - echo "BRANCH $BRANCH"
@@ -20,16 +19,18 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - echo Cloning remote GIT repo 
+      - ls
+      - rm -rf *
+      - ls
       - pwd
+      - git clone https://Webdevlive:329gvqbu42@github.com/ForeverCompanies/magento2.git 
       - ls
       - pip install dirsync
       - cp -p -r --backup=numbered `find ~/ -name dirsync -a -type d` ./
       - ls
       - zip -qr source.zip ./
-      - aws s3 cp source.zip s3://test-buildartifactsbucket/build
-      - aws lambda update-function-code --function-name test --s3-bucket test-buildartifactsbucket --s3-key source.zip
-      
+      - aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file fileb://source.zip
+      - sleep 3
       #- aws sns publish {} topic
   post_build:
     commands:
@@ -39,3 +40,4 @@ phases:
 artifacts:
   files:
     - '**/*'
+
