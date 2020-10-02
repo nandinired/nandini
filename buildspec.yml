@@ -28,7 +28,7 @@ phases:
       - ls
       - zip -qr source.zip ./
       - aws s3 cp source.zip s3://test-buildartifactsbucket/build
-      - aws lambda update-function-code --function-name test --s3-bucket test-buildartifactsbucket --s3-key build/source.zip
+      - aws lambda update-function-code --function-name test --s3-bucket test-buildartifactsbucket --s3-key source.zip
       
       #- aws sns publish {} topic
   post_build:
