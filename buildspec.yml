@@ -25,11 +25,10 @@ phases:
       - cp -p -r --backup=numbered `find ~/ -name dirsync -a -type d` ./
       - ls
       - zip -qr source.zip ./
-      - mkdir temp
-      - cp source.zip temp
-      - aws s3 sync temp s3://test-buildartifactsbucket/
+      - aws s3 cp source.zip s3://test-buildartifactsbucket/source.zip
       - aws lambda update-function-code --function-name test --s3-bucket test-buildartifactsbucket --s3-key source.zip
       - sleep 3
+      - aws s3 rm s3://test-buildartifactsbucket/source.zip --recursive
       #- aws sns publish {} topic
   post_build:
     commands:
