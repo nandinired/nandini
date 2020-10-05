@@ -23,14 +23,12 @@ phases:
       - rm -rf *
       - ls
       - pwd
-      - git clone https://Webdevlive:329gvqbu42@github.com/ForeverCompanies/magento2.git 
-      - ls
       - pip install dirsync
       - cp -p -r --backup=numbered `find ~/ -name dirsync -a -type d` ./
       - ls
       - zip -qr source.zip ./
       - aws s3 cp source.zip s3://test-buildartifactsbucket/source.zip
-      - aws lambda update-function-code --function-name test --s3-bucket test-buildartifactsbucket --s3-key source.zip
+      - aws lambda update-function-code --function-name testing --s3-bucket test-buildartifactsbucket --s3-key source.zip
       - sleep 3
       #- aws sns publish {} topic
   post_build:
