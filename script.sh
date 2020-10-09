@@ -3,7 +3,7 @@ url="https://api.github.com/repos/nandinired/nandini/pulls"
 label=curl ${url} | grep labels
 echo $label
 for var in $label;do
-    curl https://api.github.com/repos/nandinired/nandini/pulls | grep labels/
+    curl -sSL https://api.github.com/repos/nandinired/nandini/pulls | grep labels/
     rtn=$?
     if [ $rtn = 0 ]; then
         ls
