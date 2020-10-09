@@ -1,6 +1,6 @@
 #!/bin/bash
 url="https://api.github.com/repos/nandinired/nandini/pulls"
-label=curl ${url} | grep labels
+label=curl -sSL ${url} | grep labels
 echo $label
 for var in $label;do
     curl -sSL https://api.github.com/repos/nandinired/nandini/pulls | grep labels/
