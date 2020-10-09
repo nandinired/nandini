@@ -19,6 +19,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
+      - chmod +x script.sh
       - ./script.sh
   post_build:
     commands:
