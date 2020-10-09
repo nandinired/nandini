@@ -1,5 +1,5 @@
 #!/bin/bash
-label = curl https://api.github.com/repos/nandinired/nandini/pulls | grep labels
+label=curl https://api.github.com/repos/nandinired/nandini/pulls | grep labels
 for var in $label;do
     curl https://api.github.com/repos/nandinired/nandini/pulls | grep labels/
     rtn=$?
