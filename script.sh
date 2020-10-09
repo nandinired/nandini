@@ -1,10 +1,10 @@
 #!/bin/bash
 url="https://api.github.com/repos/nandinired/nandini/pulls"
-curl -sSL ${url} | grep labels > output
+curl ${url} | grep labels > output
 label=cat $output
 echo $label
 for var in $label;do
-    curl -sSL https://api.github.com/repos/nandinired/nandini/pulls | grep labels/
+    curl https://api.github.com/repos/nandinired/nandini/pulls | grep labels/
     rtn=$?
     if [ $rtn = 0 ]; then
         ls
