@@ -21,6 +21,7 @@ if [ $rtn = 0 ]; then
         break
     fi
     echo "no label found"
-fi
+else
 echo "pull request is not created for test branch"
+fi
 done
