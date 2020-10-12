@@ -19,9 +19,9 @@ if [ $rtn = 0 ]; then
         sleep 3
         #aws s3 rm s3://test-buildartifactsbucket/ --recursive
         break
-    fi
+    else
     echo "no label found"
+    fi
 else
 echo "pull request is not created for test branch"
 fi
-done
