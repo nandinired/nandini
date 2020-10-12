@@ -12,6 +12,7 @@ rtn=$?
         #aws lambda update-function-code --function-name test --s3-bucket test-buildartifactsbucket --s3-key source.zip
         sleep 3
         #aws s3 rm s3://test-buildartifactsbucket/ --recursive
-    fi
     else
     echo "no label found"
+    fi
+echo "build successful"
