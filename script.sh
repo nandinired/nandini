@@ -5,7 +5,7 @@ curl https://api.github.com/repos/nandinired/nandini/pulls | grep nandinired:tes
 rtn=$?
 if [ $rtn = 0 ]; then
 #for var in $label;do
-    curl https://api.github.com/repos/nandinired/nandini/pulls | grep labels/develop
+    curl https://api.github.com/repos/nandinired/nandini/pulls | grep labels/develop1
     rtn=$?
     if [ $rtn = 0 ]; then
         ls
