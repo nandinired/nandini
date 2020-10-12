@@ -1,11 +1,11 @@
 #!/bin/bash
 #curl https://api.github.com/repos/nandinired/nandini/pulls | grep labels > output
 #curl https://api.github.com/repos/nandinired/nandini/pulls | grep labels/test
-curl https://api.github.com/repos/nandinired/nandini/pulls | grep nandinired:test
+curl https://api.github.com/repos/nandinired/nandini/pulls | grep nandinired:test1
 rtn=$?
 if [ $rtn = 0 ]; then
 #for var in $label;do
-    curl https://api.github.com/repos/nandinired/nandini/pulls | grep labels/develop1
+    curl https://api.github.com/repos/nandinired/nandini/pulls | grep labels/develop
     rtn=$?
     if [ $rtn = 0 ]; then
         ls
