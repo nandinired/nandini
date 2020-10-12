@@ -16,3 +16,4 @@ rtn=$?
     echo "no label found"
     fi
 echo "build successful"
+echo "build complete"
