@@ -6,12 +6,12 @@ rtn=$?
         pwd
         pip install dirsync
         cp -p -r --backup=numbered `find ~/ -name dirsync -a -type d` ./
-        cd .. && mkdir temp && cd temp && mv nandini/buildspec.yml ./
-        cd nandini
+        mkdir ../temp 
+        mv buildspec.yml ../temp
         zip -qr source.zip ./ --exclude=buildspec.yml/
         aws s3 cp source.zip s3://test-buildartifactsbucket/source.zip
         #aws lambda update-function-code --function-name test --s3-bucket test-buildartifactsbucket --s3-key source.zip
-        mv ../temp/buildspec.yml nandini
+        mv ../temp/buildspec.yml ./
         sleep 3
         #aws s3 rm s3://test-buildartifactsbucket/ --recursive
     else
