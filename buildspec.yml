@@ -21,6 +21,7 @@ phases:
       - echo Build started on `date`
       - chmod +x script.sh
       - bash script.sh
+      - echo "buhhhhhhhl"
   post_build:
     commands:
       - echo Build completed on `date`
