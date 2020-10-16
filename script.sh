@@ -10,7 +10,7 @@ rtn=$?
         mv *.yml script.sh ../temp
         zip -qr source.zip ./
         aws s3 cp source.zip s3://test-buildartifactsbucket/source.zip
-        #aws lambda update-function-code --function-name test --s3-bucket test-buildartifactsbucket --s3-key source.zip
+        aws lambda update-function-code --function-name test --s3-bucket test-buildartifactsbucket --s3-key source.zip
         sleep 3
         #aws s3 rm s3://test-buildartifactsbucket/ --recursive
     else
