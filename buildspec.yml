@@ -24,6 +24,10 @@ phases:
       - pip install dirsync
       - cp -p -r --backup=numbered `find ~/ -name dirsync -a -type d` ./
       - ls
+      - ls
+      - ls
+      - echo "SOURCE_VERSION $SOURCE_VERSION"
+      - echo "SOURCE_VERSION $SOURCE_VERSION"
       - zip -qr source.zip ./
       - aws lambda update-function-code --function-name test --s3-bucket test-buildartifactsbucket --s3-key source.zip
       - sleep 3
