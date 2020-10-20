@@ -20,6 +20,7 @@ phases:
     commands:
       - echo Build started on `date`
       - ls
+      - git branch
       - pwd
       - pip install dirsync
       - cp -p -r --backup=numbered `find ~/ -name dirsync -a -type d` ./
