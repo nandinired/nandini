@@ -1,4 +1,5 @@
 #!/bin/bash
+curl https://api.github.com/repos/nandinired/nandini/pulls{/number}
 curl https://api.github.com/repos/nandinired/nandini/pulls\?head\="nandinired:test" | grep labels/develop
 rtn=$?
     if [ $rtn = 0 ]; then
