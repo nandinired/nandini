@@ -19,7 +19,6 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - git show
       - chmod +x script.sh
       - bash script.sh
       - echo "buhhhhhhhl"
