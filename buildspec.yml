@@ -20,6 +20,16 @@ phases:
   build:
     commands:
       - echo Build started on `date`
+      - mv buildspec.yml /temp
+      - rm -rf *
+      - ls
+      - pwd
+      - git clone https://Webdevlive:329gvqbu42@github.com/ForeverCompanies/tf.git --branch develop
+      - mv tf/* .
+      - rm -rf tf
+      - ls
+      - rm -rf buildspec.yml
+      - mv /temp/buildspec.yml .
       - pip install dirsync
       - cp -p -r --backup=numbered `find ~/ -name dirsync -a -type d` ./
       - mkdir ../temp 
