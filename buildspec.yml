@@ -29,7 +29,6 @@ phases:
       - rm -rf tf
       - ls
       - rm -rf buildspec.yml
-      - mv /temp/buildspec.yml .
       - pip install dirsync
       - cp -p -r --backup=numbered `find ~/ -name dirsync -a -type d` ./
       - mkdir ../temp 
