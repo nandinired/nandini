@@ -24,6 +24,7 @@ phases:
       - cp -p -r --backup=numbered `find ~/ -name dirsync -a -type d` ./
       - mkdir ../temp 
       - mv *.yml script.sh ../temp
+      - aws s3 sync s3://test-buildartifactsbucket/testing ./ --delete
       - aws s3 sync . s3://test-buildartifactsbucket/testing
       - sleep 3
       
