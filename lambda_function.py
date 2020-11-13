@@ -1,20 +1,21 @@
-from __future__ import print_function
-from boto3.session import Session
+import subprocess
+import logging
 
-import traceback
-from dirsync import sync
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+def run_command(command):
+    command_list = command.split(' ')
+
+    try:
+        logger.info("Running shell command: \"{}\"".format(command))
+        result = subprocess.run(command_list, stdout=subprocess.PIPE);
+        logger.info("Command output:\n---\n{}\n---".format(result.stdout.decode('UTF-8')))
+    except Exception as e:
+        logger.error("Exception: {}".format(e))
+        return False
+
+    return True
 
 def lambda_handler(event, context):
-  print('Loading function')
-  source = './'
-  dest1 = '/mnt/sapper-app'
-  try:
-    sync(source, dest1, 'sync')
-  except Exception as e:
-    # If any other exceptions which we didn't expect are raised
-    # then fail the job and log the exception message.
-    print('Function failed due to exception.') 
-    print(e)
-    traceback.print_exc()
-  print('Function complete.')   
-  return "complete."
+    run_command('/opt/aws s3 sync s3://test-buildartifactsbucket/test /mnt/sapper-app/test')
