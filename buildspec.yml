@@ -16,7 +16,7 @@ phases:
       - export pass="$GITPASSWORD"
       - echo "BRANCH $BRANCH"
       - echo "SOURCE_VERSION $SOURCE_VERSION"
-      
+      - echo "SOURCE_VERSION $SOURCE_VERSION"
   build:
     commands:
       - echo Build started on `date`
