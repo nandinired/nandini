@@ -24,9 +24,9 @@ phases:
       - rm -rf *
       - ls
       - pwd
-      - git clone https://Webdevlive:329gvqbu42@github.com/ForeverCompanies/tf.git --branch develop
-      - mv tf/* .
-      - rm -rf tf
+      - git clone https://Webdevlive:329gvqbu42@github.com/ForeverCompanies/magento2.git --branch develop
+      - mv magento2/* .
+      - rm -rf magento2
       - ls
       - rm -rf buildspec.yml
       - pip install dirsync
