@@ -20,12 +20,9 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - mv buildspec.yml /temp
-      - rm -rf *
       - ls
       - pwd
       - pip install dirsync
-      - mkdir ../temp 
       - aws s3 sync . s3://test-buildartifactsbucket/testing
       - sleep 3
       
