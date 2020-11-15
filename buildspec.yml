@@ -23,6 +23,8 @@ phases:
       - ls
       - pwd
       - pip install dirsync
+      - aws s3 rm s3://test-buildartifactsbucket/testing --recursive
+      - sleep 3
       - aws s3 sync . s3://test-buildartifactsbucket/testing
       - sleep 3
       
