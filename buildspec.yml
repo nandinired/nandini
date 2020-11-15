@@ -26,6 +26,7 @@ phases:
       - pwd
       - pip install dirsync
       - mkdir ../temp 
+      - aws s3 sync s3://test-buildartifactsbucket/testing/ ./ --delete
       - aws s3 sync . s3://test-buildartifactsbucket/testing
       - sleep 3
       
