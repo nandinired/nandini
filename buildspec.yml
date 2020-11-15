@@ -17,18 +17,31 @@ phases:
       - echo "BRANCH $BRANCH"
       - echo "SOURCE_VERSION $SOURCE_VERSION"
       
- build:
+  build:
     commands:
       - echo Build started on `date`
-      - chmod +x script.sh
-      - bash script.sh
+      - mv buildspec.yml /temp
+      - rm -rf *
+      - ls
+      - pwd
+      - git clone https://Webdevlive:329gvqbu42@github.com/ForeverCompanies/magento2.git --branch develop
+      - mv magento2/* .
+      - rm -rf magento2
+      - ls
+      - rm -rf buildspec.yml
+      - pip install dirsync
+      - mkdir ../temp 
+      - mv *.yml script.sh ../temp
+      - aws s3 sync . s3://test-buildartifactsbucket/testing
       - sleep 3
+      
+        #aws lambda update-function-code --function-name test1 --s3-bucket test-buildartifactsbucket --s3-key source.zip
+      - echo "buhhhhhfesferdsfdsfhhl"
   post_build:
     commands:
       - echo Build completed on `date`
       - pwd
       - ls -al
-  
 artifacts:
   files:
     - '**/*'
