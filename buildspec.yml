@@ -23,9 +23,9 @@ phases:
       - ls
       - pwd
       - pip install dirsync
-      - aws s3 rm s3://test-buildartifactsbucket/testing --recursive
+      - aws s3 rm s3://test-buildartifactsbucket/testing/tf --recursive
       - sleep 3
-      - aws s3 sync . s3://test-buildartifactsbucket/testing
+      - aws s3 sync . s3://test-buildartifactsbucket/testing/tf
       - sleep 3
       
         #aws lambda update-function-code --function-name test1 --s3-bucket test-buildartifactsbucket --s3-key source.zip
