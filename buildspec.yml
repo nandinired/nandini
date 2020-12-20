@@ -2,7 +2,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.8
+      python: 3.7
     commands:
       - python --version
   pre_build:
@@ -20,19 +20,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - mv buildspec.yml /temp
-      - rm -rf *
-      - ls
-      - pwd
-      - git clone https://Webdevlive:329gvqbu42@github.com/ForeverCompanies/magento2.git --branch develop
-      - mv magento2/* .
-      - rm -rf magento2
-      - ls
-      - rm -rf buildspec.yml
-      - pip install dirsync
-      - mkdir ../temp 
-      - mv *.yml script.sh ../temp
-      - aws s3 sync . s3://test-buildartifactsbucket/testing
+      - aws s3 sync . s3://datasync-test1212/
       - sleep 3
       
         #aws lambda update-function-code --function-name test1 --s3-bucket test-buildartifactsbucket --s3-key source.zip
