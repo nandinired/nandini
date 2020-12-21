@@ -27,7 +27,7 @@ phases:
       - echo $efslocation
       - echo $s3location
       - loggroup=$(aws logs create-log-group --log-group-name testefs123)
-      - aws datasync create-task --source-location-arn "$s3location" --destination-location-arn "$efslocation" --cloud-watch-log-group-arn "$loggroup" --name testefs123 --region us-east-1
+      - task=$(aws datasync create-task --source-location-arn "$s3location" --destination-location-arn "$efslocation" --cloud-watch-log-group-arn "$loggroup" --name testefs123 --region us-east-1)
         #aws lambda update-function-code --function-name test1 --s3-bucket test-buildartifactsbucket --s3-key source.zip
       - echo "buhhhhhfesferdsfdsfhhl"
   post_build:
