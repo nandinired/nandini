@@ -21,9 +21,11 @@ phases:
     commands:
       - echo Build started on `date`
       - aws s3 sync . s3://datasync-test1212/
-      - test=$(aws datasync create-location-efs --subdirectory /sapper/ --efs-filesystem-arn 'arn:aws:elasticfilesystem:us-east-1:916127912776:file-system/fs-72480987' --ec2-config SecurityGroupArns='arn:aws:ec2:us-east-1:916127912776:security-group/sg-075b1f5dded812045',SubnetArn='arn:aws:ec2:us-east-1:916127912776:subnet/subnet-0a0331d3800b5ef7a' --region us-east-1 | awk 'NF{ print $NF }' | sed 's/{//g' | sed 's/"//g' | sed 's/}//g')
+      - efslocatiom=$(aws datasync create-location-efs --subdirectory /sapper/ --efs-filesystem-arn 'arn:aws:elasticfilesystem:us-east-1:916127912776:file-system/fs-72480987' --ec2-config SecurityGroupArns='arn:aws:ec2:us-east-1:916127912776:security-group/sg-075b1f5dded812045',SubnetArn='arn:aws:ec2:us-east-1:916127912776:subnet/subnet-0a0331d3800b5ef7a' --region us-east-1 | awk 'NF{ print $NF }' | sed 's/{//g' | sed 's/"//g' | sed 's/}//g')
       - sleep 3
-      - echo $test
+      - s3location=$(aws datasync create-location-s3 --s3-bucket-arn 'arn:aws:s3:::datasync-test1212' --s3-storage-class 'STANDARD' --s3-config 'BucketAccessRoleArn=arn:aws:iam::916127912776:role/datasyncs3' --subdirectory /test --region us-east-1 | awk 'NF{ print $NF }' | sed 's/{//g' | sed 's/"//g' | sed 's/}//g')
+      - echo $efslocation
+      - echo $s3location
         #aws lambda update-function-code --function-name test1 --s3-bucket test-buildartifactsbucket --s3-key source.zip
       - echo "buhhhhhfesferdsfdsfhhl"
   post_build:
